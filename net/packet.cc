@@ -84,7 +84,6 @@ std::ostream& operator<<(std::ostream& os, const packet& p) {
         }
         first = false;
         if (std::all_of(frag.base, frag.base + frag.size, [] (int c) { return c >= 9 && c <= 0x7f; })) {
-            os << '"';
             for (auto p = frag.base; p != frag.base + frag.size; ++p) {
                 auto c = *p;
                 if (isprint(c)) {
@@ -100,7 +99,6 @@ std::ostream& operator<<(std::ostream& os, const packet& p) {
                     os << "\\x" << (b / 16) << (b % 16);
                 }
             }
-            os << '"';
         } else {
             os << "{";
             bool nfirst = true;
